@@ -107,8 +107,8 @@ def accuracy(output, target, topk=(1,)):
     return res
 
 
-def save_checkpoint(state, ckpt_dir, is_best=False):
-    filename = os.path.join(ckpt_dir, 'checkpoint.pth.tar')
+def save_checkpoint(state, ckpt_dir, epoch, is_best=False):
+    filename = os.path.join(ckpt_dir, 'checkpoint{}.pth.tar'.format(epoch))
     torch.save(state, filename)
     if is_best:
         best_filename = os.path.join(ckpt_dir, 'best.pth.tar')
