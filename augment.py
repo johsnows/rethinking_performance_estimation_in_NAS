@@ -114,7 +114,11 @@ def main():
 
         # validation
         cur_step = (epoch+1) * len_train_loader
-        top1 = validate(valid_loader, model, criterion, epoch, cur_step)
+        # top1 = validate(valid_loader, model, criterion, epoch, cur_step)
+        tops = mul_validate(valid_loader, model, criterion, epoch, cur_step)
+        np.save(tops, "res/darts{}epoch{}acc.npy".format(config.i, epoch))
+        top1=tops[0]
+
 
         # save
         if best_top1 < top1:
@@ -122,7 +126,7 @@ def main():
             is_best = True
         else:
             is_best = False
-        utils.save_checkpoint(model, config.path, is_best)
+        utils.save_checkpoint(model, config.path, epoch, is_best)
 
         print("")
 
@@ -191,6 +195,61 @@ def train(train_loader, model, optimizer, criterion, epoch):
     logger.info("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch+1, config.epochs, top1.avg))
 
 
+def mul_validate(valid_loader, model, criterion, epoch, cur_step):
+    top1 = utils.AverageMeter()
+    top5 = utils.AverageMeter()
+    losses = utils.AverageMeter()
+    if config.data_loader_type == 'DALI':
+        len_val_loader = get_train_loader_len(config.dataset.lower(), config.batch_size, is_train=False)
+    else:
+        len_val_loader = len(valid_loader)
+    top = [i for i in range(10)]
+    tops = [utils.AverageMeter() for i in range(10)]
+    def val_iter(X, y):
+        N = X.size(0)
+
+        logits, _ = model(X)
+        loss = criterion(logits, y)
+
+        precs = utils.accuracy(logits, y, topk=top)
+        losses.update(loss.item(), N)
+        for i in range(10):
+            tops[i].update(precs[i].item(), N)
+        # top1.update(prec1.item(), N)
+        # top5.update(prec5.item(), N)
+
+        if step % config.print_freq == 0 or step == len_val_loader - 1:
+            logger.info(
+                "Valid: [{:3d}/{}] Step {:03d}/{:03d} Loss {losses.avg:.3f} "
+                "Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})".format(
+                    epoch + 1, config.epochs, step, len_val_loader - 1, losses=losses,
+                    top1=tops[0], top5=tops[4]))
+
+    model.eval()
+
+    with torch.no_grad():
+        if config.data_loader_type == 'DALI':
+            for step, data in enumerate(valid_loader):
+                X = data[0]["data"].cuda(async=True)
+                y = data[0]["label"].squeeze().long().cuda(async=True)
+                val_iter(X, y)
+            valid_loader.reset()
+        else:
+            for step, (X, y) in enumerate(valid_loader):
+                X, y = X.to(device, non_blocking=True), y.to(device, non_blocking=True)
+                if config.fp16:
+                    X = X.type(torch.float16)
+                val_iter(X, y)
+            logger.info("valid steps: {}".format(step))
+
+    writer.add_scalar('val/loss', losses.avg, cur_step)
+    writer.add_scalar('val/top1', tops[0].avg, cur_step)
+    writer.add_scalar('val/top5', tops[4].avg, cur_step)
+    logger.info("Valid: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch + 1, config.epochs, tops[0].avg))
+    avg=[tops[i].avg for i in range(10)]
+    return avg
+
+
 def validate(valid_loader, model, criterion, epoch, cur_step):
     top1 = utils.AverageMeter()
     top5 = utils.AverageMeter()
@@ -199,7 +258,7 @@ def validate(valid_loader, model, criterion, epoch, cur_step):
         len_val_loader = get_train_loader_len(config.dataset.lower(), config.batch_size, is_train=False)
     else:
         len_val_loader = len(valid_loader)
-
+    top = [i for i in range(10)]
     def val_iter(X, y):
         N = X.size(0)
 

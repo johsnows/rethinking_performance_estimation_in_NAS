@@ -124,18 +124,33 @@ class AugmentConfig(BaseConfig):
             self.genotype = gt.from_str(self.genotype)
             self.path = os.path.join(self.save_dir, 'rl', self.name)
         
+        # if self.file:
+        #     print('Using multi genotypes from file')
+        #     file_ = open(self.file)
+        #     lines = file_.readlines()
+        #     for i, line in enumerate(lines):
+        #         self.path = os.path.join(self.save_dir, self.name, str(i))
+        #         if i < self.i:
+        #             continue
+        #         if os.path.isdir(self.path):
+        #             continue
+        #         else:
+        #             self.genotype = line
+        #             print(line)
+        #             break
         if self.file:
-            print('Using multi genotypes from file')
+            print("automate run")
             file_ = open(self.file)
             lines = file_.readlines()
             for i, line in enumerate(lines):
                 self.path = os.path.join(self.save_dir, self.name, str(i))
-                if i < self.i:
-                    continue
                 if os.path.isdir(self.path):
                     continue
                 else:
-                    self.genotype = line
+                    print('run for {}th model genotype{}'.format(i, self.genotype))
+                    self.i=i
+                    self.genotype = gt.from_str(line)
                     print(line)
                     break
+
         self.gpus = parse_gpus(self.gpus)
