@@ -22,7 +22,7 @@ def parse_gpus(gpus):
 
 
 class BaseConfig(argparse.Namespace):
-    def print_params(self, prtf=print):
+    def print_params(self, prtf=print() ):
         prtf("")
         prtf("Parameters:")
         for attr, value in sorted(vars(self).items()):
