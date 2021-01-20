@@ -117,7 +117,7 @@ def main():
         # top1 = validate(valid_loader, model, criterion, epoch, cur_step)
         tops = mul_validate(valid_loader, model, criterion, epoch, cur_step)
         print('tops', tops)
-        np.save(tops, "res/darts{}epoch{}acc.npy".format(config.i, epoch))
+        np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         top1=tops[0]
 
 
