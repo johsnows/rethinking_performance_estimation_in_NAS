@@ -22,12 +22,12 @@ def parse_gpus(gpus):
 
 
 class BaseConfig(argparse.Namespace):
-    def print_params(self):
-        print("")
-        print("Parameters:")
+    def print_params(self, prtf=print):
+        prtf("")
+        prtf("Parameters:")
         for attr, value in sorted(vars(self).items()):
-            print("{}={}".format(attr.upper(), value))
-        print("")
+            prtf("{}={}".format(attr.upper(), value))
+        prtf("")
 
     def as_markdown(self):
         text = "|name|value|  \n|-|-|  \n"
