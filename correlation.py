@@ -7,7 +7,7 @@ from scipy.stats import kendalltau
 
 def draw_linears_y(x, y, name):
     n = len(y)
-    fig, axes = plt.subplots(nrows=2, ncols=n//2+1, figsize=(20, 10))
+    fig, axes = plt.subplots(nrows=2, ncols=n//2+1, figsize=(30, 10))
     for i in range(n):
         if i//5==0:
             axes[0][i].plot(x, y[i])
