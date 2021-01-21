@@ -12,6 +12,8 @@ def main():
         for j in range(24):
             acc=np.load("res/darts{}epoch50acc.npy".format(j))
             accs.append(acc[i])
+        print(accs)
+        print(gt)
         kend, _ = kendalltau(gt, accs)
         print('top{} kend{}'.format(i, kend))
         kends.append(kend)
