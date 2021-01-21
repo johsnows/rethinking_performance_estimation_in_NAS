@@ -49,6 +49,24 @@ def data_transforms(dataset, input_size, cutout_length):
             transforms.RandomAffine(degrees=15, translate=(0.1, 0.1), scale=(0.9, 1.1), shear=0.1),
             transforms.RandomVerticalFlip()
         ]
+    elif dataset == 'cifar100':
+        CIFAR_MEAN = [0.5071, 0.4867, 0.4408]
+        CIFAR_STD = [0.2675, 0.2565, 0.2761]
+
+        train_transform = transforms.Compose([
+            transforms.RandomCrop(32, padding=4),
+            transforms.RandomHorizontalFlip(),
+            transforms.ToTensor(),
+            transforms.Normalize(CIFAR_MEAN, CIFAR_STD),
+        ])
+        if cutout_length>0:
+            train_transform.transforms.append(Cutout(cutout_length))
+
+        valid_transform = transforms.Compose([
+            transforms.ToTensor(),
+            transforms.Normalize(CIFAR_MEAN, CIFAR_STD),
+        ])
+        return train_transform, valid_transform
     else:
         raise ValueError('not expected dataset = {}'.format(dataset))
 
