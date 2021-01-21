@@ -138,7 +138,7 @@ class AugmentConfig(BaseConfig):
         #             self.genotype = line
         #             print(line)
         #             break
-        if self.file and self.data == 'cifar10':
+        if self.file and self.dataset == 'cifar10':
             print("automate run cifar10")
             file_ = open(self.file)
             lines = file_.readlines()
@@ -154,7 +154,7 @@ class AugmentConfig(BaseConfig):
                     self.genotype = gt.from_str(line)
                     print(line)
                     break
-        if self.file and self.data == 'cifar100':
+        if self.file and self.dataset == 'cifar100':
             print("automate run cifar100")
             file_ = open(self.file)
             lines = file_.readlines()
