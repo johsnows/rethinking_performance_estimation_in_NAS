@@ -16,7 +16,7 @@ def main():
     # b = [113,12312,12312321]
     # print(kendalltau(a,b)[0])
     gt = [ 96.82, 97.28, 96.98, 97.19, 96.87, 96.76, 97.09, 97.24, 97.26, 96.92, 96.82, 97.09, 96.62, 97.02, 97.18, 97.15, 97.32, 97.05, 97.02, 97.16, 97.34, 97.00, 97.19, 96.51, ]
-    epochs =[i for i in range(20)]
+    epochs =[i for i in range(200)]
     for i in range(1,10):
         kends = []
         for epoch in range(200):
@@ -29,7 +29,7 @@ def main():
             kend, _ = kendalltau(accs, gt)
             print('top{} epoch{} kend{}'.format(i, epoch, kend))
             kends.append(kend)
-        draw_linear(epochs, gt, "top{}kend.pdf".format(i))
+        draw_linear(epochs, kends, "top{}kend.pdf".format(i))
 
     print('kend all', kend)
 
