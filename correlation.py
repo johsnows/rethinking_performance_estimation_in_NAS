@@ -10,7 +10,7 @@ def main():
     for i in range(1,10):
         accs = []
         for j in range(24):
-            acc=np.load("res/darts{}epoch200acc.npy".format(j))
+            acc=np.load("res/darts{}epoch100acc.npy".format(j))
             accs.append(acc[i])
         # print(accs)
         # print(gt)
