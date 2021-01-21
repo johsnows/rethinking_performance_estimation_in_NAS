@@ -7,9 +7,12 @@ from scipy.stats import kendalltau
 
 def draw_linears_y(x, y, name):
     n = len(y)
-    fig, axes = plt.subplots(nrows=1, ncols=n, figsize=(10, 3))
+    fig, axes = plt.subplots(nrows=2, ncols=n//2, figsize=(10, 3))
     for i in range(n):
-        axes[i].plot(x, y[i])
+        if i//5==0:
+            axes[0][i].plot(x, y[i])
+        else:
+            axes[1][i%5].plot(x, y[i])
     plt.savefig(name)
 
 def draw_linear(x, y, name):
@@ -42,7 +45,7 @@ def main():
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         all_kends.append(kends)
         # draw_linear(epochs, kends, "top{}kend_smooth.pdf".format(i))
-    draw_linears_y(epochs, all_kends, "top1_9kend_smooth.pdf")
+    draw_linears_y(epochs, all_kends, "top1_9kend.pdf")
 
     print('kend all', kend)
 
