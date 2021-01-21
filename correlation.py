@@ -7,7 +7,7 @@ from scipy.stats import kendalltau
 
 def draw_linear(x, y, name):
     fig, axes = plt.subplots(nrows=1, ncols=2, figsize=(10, 3))
-    axes[0].scatter(x, y)
+    axes[0].plot(x, y)
     plt.savefig(name)
 
 
@@ -26,7 +26,7 @@ def main():
                 accs.append(acc[i])
         # print(accs)
         # print(gt)
-            kend, _ = kendalltau(gt, accs)
+            kend, _ = kendalltau(accs, gt)
             print('top{} epoch{} kend{}'.format(i, epoch, kend))
             kends.append(kend)
         draw_linear(kends, epochs, "top{}kend.pdf".format(i))
