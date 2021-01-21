@@ -22,6 +22,7 @@ def get_data(dataset, data_path, input_size, cutout_length, validation):
         dset_cls = dset.FashionMNIST
         n_classes = 10
     elif dataset == 'cifar100':
+        n_classes = 100
         dset_cls = dset.CIFAR100
     else:
         raise ValueError(dataset)
