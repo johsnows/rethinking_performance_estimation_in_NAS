@@ -138,8 +138,24 @@ class AugmentConfig(BaseConfig):
         #             self.genotype = line
         #             print(line)
         #             break
-        if self.file:
-            print("automate run")
+        if self.file and self.data == 'cifar10':
+            print("automate run cifar10")
+            file_ = open(self.file)
+            lines = file_.readlines()
+            for i, line in enumerate(lines):
+                self.path = os.path.join(self.save_dir, self.name, str(i))
+                if i <self.i:
+                    continue
+                if os.path.isdir(self.path):
+                    continue
+                else:
+                    print('run for {}th model genotype{}'.format(i, self.genotype))
+                    self.i=i
+                    self.genotype = gt.from_str(line)
+                    print(line)
+                    break
+        if self.file and self.data == 'cifar100':
+            print("automate run cifar100")
             file_ = open(self.file)
             lines = file_.readlines()
             for i, line in enumerate(lines):

@@ -115,9 +115,12 @@ def main():
         # validation
         cur_step = (epoch+1) * len_train_loader
         # top1 = validate(valid_loader, model, criterion, epoch, cur_step)
-        tops = mul_validate(valid_loader, model, criterion, epoch, cur_step)
+        tops = mul_validate(valid_loader, model, criterion, epoch, cur_step, n_classes)
         print('tops', tops)
-        np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+        if config.dataset== 'cifar10':
+            np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+        elif config.dataset == 'cifar100':
+            np.save("res/cifar100_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         top1=tops[0]
 
 
@@ -196,7 +199,7 @@ def train(train_loader, model, optimizer, criterion, epoch):
     logger.info("Train: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch+1, config.epochs, top1.avg))
 
 
-def mul_validate(valid_loader, model, criterion, epoch, cur_step):
+def mul_validate(valid_loader, model, criterion, epoch, cur_step, n_class=10):
     top1 = utils.AverageMeter()
     top5 = utils.AverageMeter()
     losses = utils.AverageMeter()
@@ -204,8 +207,8 @@ def mul_validate(valid_loader, model, criterion, epoch, cur_step):
         len_val_loader = get_train_loader_len(config.dataset.lower(), config.batch_size, is_train=False)
     else:
         len_val_loader = len(valid_loader)
-    top = [i for i in range(10)]
-    tops = [utils.AverageMeter() for i in range(10)]
+    top = [i for i in range(n_class)]
+    tops = [utils.AverageMeter() for i in range(n_class)]
     def val_iter(X, y):
         N = X.size(0)
 
@@ -214,7 +217,7 @@ def mul_validate(valid_loader, model, criterion, epoch, cur_step):
 
         precs = utils.accuracy(logits, y, topk=top)
         losses.update(loss.item(), N)
-        for i in range(10):
+        for i in range(n_class):
             tops[i].update(precs[i].item(), N)
         # top1.update(prec1.item(), N)
         # top5.update(prec5.item(), N)
@@ -224,7 +227,7 @@ def mul_validate(valid_loader, model, criterion, epoch, cur_step):
                 "Valid: [{:3d}/{}] Step {:03d}/{:03d} Loss {losses.avg:.3f} "
                 "Prec@(1,5) ({top1.avg:.1%}, {top5.avg:.1%})".format(
                     epoch + 1, config.epochs, step, len_val_loader - 1, losses=losses,
-                    top1=tops[0], top5=tops[4]))
+                    top1=tops[1], top5=tops[5]))
 
     model.eval()
 
@@ -244,10 +247,10 @@ def mul_validate(valid_loader, model, criterion, epoch, cur_step):
             logger.info("valid steps: {}".format(step))
 
     writer.add_scalar('val/loss', losses.avg, cur_step)
-    writer.add_scalar('val/top1', tops[0].avg, cur_step)
-    writer.add_scalar('val/top5', tops[4].avg, cur_step)
-    logger.info("Valid: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch + 1, config.epochs, tops[0].avg))
-    avg=[tops[i].avg for i in range(10)]
+    writer.add_scalar('val/top1', tops[1].avg, cur_step)
+    writer.add_scalar('val/top5', tops[5].avg, cur_step)
+    logger.info("Valid: [{:3d}/{}] Final Prec@1 {:.4%}".format(epoch + 1, config.epochs, tops[1].avg))
+    avg=[tops[i].avg for i in range(n_class)]
     return avg
 
 
