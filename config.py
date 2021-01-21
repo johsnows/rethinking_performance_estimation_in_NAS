@@ -144,6 +144,8 @@ class AugmentConfig(BaseConfig):
             lines = file_.readlines()
             for i, line in enumerate(lines):
                 self.path = os.path.join(self.save_dir, self.name, str(i))
+                if i <self.i:
+                    continue
                 if os.path.isdir(self.path):
                     continue
                 else:
