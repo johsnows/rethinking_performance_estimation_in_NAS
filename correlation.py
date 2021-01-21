@@ -19,7 +19,7 @@ def main():
     epochs =[i for i in range(20)]
     for i in range(1,10):
         kends = []
-        for epoch in range(20):
+        for epoch in range(200):
             accs = []
             for j in range(24):
                 acc=np.load("res/darts{}epoch{}acc.npy".format(j, epoch))
@@ -29,7 +29,7 @@ def main():
             kend, _ = kendalltau(accs, gt)
             print('top{} epoch{} kend{}'.format(i, epoch, kend))
             kends.append(kend)
-        draw_linear(kends, epochs, "top{}kend.pdf".format(i))
+        draw_linear(epochs, gt, "top{}kend.pdf".format(i))
 
     print('kend all', kend)
 
