@@ -10,10 +10,10 @@ def main():
     for i in range(1,10):
         accs = []
         for j in range(24):
-            acc=np.load("res/darts{}epoch10acc.npy".format(j))
+            acc=np.load("res/darts{}epoch50acc.npy".format(j))
             accs.append(acc[i])
         kend, _ = kendalltau(gt, accs)
-        print('top{} kend{}'.format(i+1, kend))
+        print('top{} kend{}'.format(i, kend))
         kends.append(kend)
     print('kend all', kend)
 
