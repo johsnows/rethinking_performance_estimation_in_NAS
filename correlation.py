@@ -31,7 +31,7 @@ def main():
             kends.append(kend)
             for i in range(len(kends)):
                 if i and i < len(kends)-1:
-                    kend[i] = (kend[i]+kend[i-1]+kend[i+1])/3
+                    kends[i] = (kends[i]+kends[i-1]+kends[i+1])/3
         draw_linear(epochs, kends, "top{}kend_smooth.pdf".format(i))
 
     print('kend all', kend)
