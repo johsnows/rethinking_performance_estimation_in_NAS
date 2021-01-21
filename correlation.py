@@ -29,9 +29,9 @@ def main():
             kend, _ = kendalltau(accs, gt)
             print('top{} epoch{} kend{}'.format(i, epoch, kend))
             kends.append(kend)
-        for i in range(len(kends)):
-            if i and i < len(kends) - 1:
-                kends[i] = (kends[i] + kends[i - 1] + kends[i + 1]) / 3
+        for id in range(len(kends)):
+            if id and id < len(kends) - 1:
+                kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         draw_linear(epochs, kends, "top{}kend_smooth.pdf".format(i))
 
     print('kend all', kend)
