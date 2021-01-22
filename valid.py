@@ -77,11 +77,11 @@ def main():
     input_size = config.image_size
 
     ckpt = "experiment/darts_10/{}/checkpoint10.pth.tar"
-    top1s = []
     file_ = open(config.file)
     lines = file_.readlines()
     kends = []
     for epoch in range(50):
+        top1s = []
         for i, line in enumerate(lines):
             if i>23:
                 break
