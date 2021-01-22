@@ -1,4 +1,5 @@
 import torch
+import genotypes as gt
 from scipy.stats import kendalltau
 import torch.nn as nn
 import numpy as np
@@ -82,7 +83,12 @@ def main():
     print("Model size = {:.3f} MB".format(mb_params))
     ckpt = "experiment/darts_10/{}/checkpoint10.pth.tar"
     top1s = []
-    for i in range(24):
+    file_ = open(config.file)
+    lines = file_.readlines()
+    for i, line in enumerate(lines):
+    # for i in range(24):
+        model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
+                           use_aux, eval(line))
         model = nn.DataParallel(model, device_ids=config.gpus).to(device)
         model =torch.load(ckpt.format(i))
         if isinstance(model, torch.nn.DataParallel):
