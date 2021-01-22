@@ -88,7 +88,7 @@ class AverageMeter():
         self.count += n
         self.avg = self.sum / self.count
 
-def super_acccuracy(output, target):
+def super_accuracy(output, target):
     _, pred = output.topk(1, 1, True, True)
     pred = pred.t()
     if target.ndimension() > 1:
