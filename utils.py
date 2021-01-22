@@ -89,6 +89,7 @@ class AverageMeter():
         self.avg = self.sum / self.count
 
 def super_accuracy(output, target):
+    batch_size = target.size(0)
     _, pred = output.topk(1, 1, True, True)
     pred = pred.t()
     if target.ndimension() > 1:
@@ -99,8 +100,9 @@ def super_accuracy(output, target):
     # print('pred',pred.shape)
     target = mp[target]
     pred = mp[pred[:][0]]
+    print(pred, target)
     correct = pred.eq(target).view(-1).float().sum(0)
-    return correct
+    return correct.mul_(1.0/batch_size)
 
 
 def accuracy(output, target, topk=(1,)):
