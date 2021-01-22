@@ -119,7 +119,10 @@ def main():
         tops = mul_validate(valid_loader, model, criterion, epoch, cur_step, n_classes)
         print('tops', tops)
         if config.dataset== 'cifar10':
-            np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+            if config.epochs == 10:
+                np.save("res/bpe1_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+            else:
+                np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         elif config.dataset == 'cifar100':
             np.save("res/cifar100_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         top1=tops[0]
