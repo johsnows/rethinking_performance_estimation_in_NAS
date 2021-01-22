@@ -100,7 +100,7 @@ def super_accuracy(output, target):
     # print('pred',pred.shape)
     target = mp[target]
     pred = mp[pred[:][0]]
-    print(pred, target)
+    # print(pred, target)
     correct = pred.eq(target).view(-1).float().sum(0)
     return correct.mul_(1.0/batch_size)
 
