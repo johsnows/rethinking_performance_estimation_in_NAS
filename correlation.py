@@ -33,7 +33,7 @@ def main():
         for epoch in range(10):
             accs = []
             for j in range(24):
-                acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
+                acc=np.load("res/darts{}epoch{}acc.npy".format(j, epoch))
                 accs.append(acc[i])
         # print(accs)
         # print(gt)
