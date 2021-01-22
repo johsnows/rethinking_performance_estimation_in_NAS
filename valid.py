@@ -76,10 +76,6 @@ def main():
     # change size of input image
     input_size = config.image_size
 
-    model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
-                       use_aux, (config.genotype))
-    # model size
-    mb_params = utils.param_size(model)
     print("Model size = {:.3f} MB".format(mb_params))
     ckpt = "experiment/darts_10/{}/checkpoint10.pth.tar"
     top1s = []
@@ -89,6 +85,8 @@ def main():
     # for i in range(24):
         model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
                            use_aux, eval(line))
+        # model size
+        mb_params = utils.param_size(model)
         model = nn.DataParallel(model, device_ids=config.gpus).to(device)
         model =torch.load(ckpt.format(i))
         if isinstance(model, torch.nn.DataParallel):
