@@ -80,31 +80,37 @@ def main():
     top1s = []
     file_ = open(config.file)
     lines = file_.readlines()
-    for i, line in enumerate(lines):
-        if i>23:
-            break
-    # for i in range(24):
-        model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
-                               use_aux, geno.from_str(line))
-        # model size
-        mb_params = utils.param_size(model)
-        print("Model size = {:.3f} MB".format(mb_params))
-        model = nn.DataParallel(model, device_ids=config.gpus).to(device)
-        model =torch.load(ckpt.format(i))
-        if isinstance(model, torch.nn.DataParallel):
-            model = model.module
-        valid_loader = torch.utils.data.DataLoader(valid_data,
-                                                   batch_size=config.batch_size,
-                                                   shuffle=False,
-                                                   num_workers=config.workers,
-                                                   pin_memory=True)
-        top1 = validate(valid_loader, model, criterion, 10)
-        top1s.append(top1)
-    top1s = np.array(top1s)
-    np.save("binar_acc.npy", top1s)
-    gt = [ 96.82, 97.28, 96.98, 97.19, 96.87, 96.76, 97.09, 97.24, 97.26, 96.92, 96.82, 97.09, 96.62, 97.02, 97.18, 97.15, 97.32, 97.05, 97.02, 97.16, 97.34, 97.00, 97.19, 96.51, ]
-    kend , _=  kendalltau(gt, top1s)
-    print('kend', kend)
+    kends = []
+    for epoch in range(50):
+        for i, line in enumerate(lines):
+            if i>23:
+                break
+        # for i in range(24):
+            model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
+                                   use_aux, geno.from_str(line))
+            # model size
+            mb_params = utils.param_size(model)
+            print("Model size = {:.3f} MB".format(mb_params))
+            model = nn.DataParallel(model, device_ids=config.gpus).to(device)
+            model =torch.load(ckpt.format(i))
+            if isinstance(model, torch.nn.DataParallel):
+                model = model.module
+            valid_loader = torch.utils.data.DataLoader(valid_data,
+                                                       batch_size=config.batch_size,
+                                                       shuffle=False,
+                                                       num_workers=config.workers,
+                                                       pin_memory=True)
+            top1 = validate(valid_loader, model, criterion, 10)
+            top1s.append(top1)
+        top1s = np.array(top1s)
+        np.save("binar_epoch{}_acc.npy".format(epoch), top1s)
+        gt = [ 96.82, 97.28, 96.98, 97.19, 96.87, 96.76, 97.09, 97.24, 97.26, 96.92, 96.82, 97.09, 96.62, 97.02, 97.18, 97.15, 97.32, 97.05, 97.02, 97.16, 97.34, 97.00, 97.19, 96.51, ]
+        kend , _=  kendalltau(gt, top1s)
+        print('kend', kend)
+        kends.append(kend)
+    from correlation import draw_linear
+    epochs = [i for i in range(50)]
+    draw_linear(epochs, kends, 'binary_kend.pdf')
 
 
 
