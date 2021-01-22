@@ -30,7 +30,7 @@ def main():
     all_kends = []
     for i in range(1,10):
         kends = []
-        for epoch in range(600):
+        for epoch in range(580):
             accs = []
             for j in range(24):
                 acc=np.load("res/darts{}epoch{}acc.npy".format(j, epoch))
