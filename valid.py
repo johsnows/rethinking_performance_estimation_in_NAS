@@ -1,11 +1,11 @@
 import torch
-import genotypes as gt
 from scipy.stats import kendalltau
 import torch.nn as nn
 import numpy as np
 from models.augment_cnn import AugmentCNN
 from config import AugmentConfig
 import utils
+import genotypes as geno
 config = AugmentConfig()
 
 device = torch.device("cuda")
@@ -83,7 +83,7 @@ def main():
     for i, line in enumerate(lines):
     # for i in range(24):
         model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
-                           use_aux, eval(line))
+                               use_aux, geno.from_str(line))
         # model size
         mb_params = utils.param_size(model)
         print("Model size = {:.3f} MB".format(mb_params))
