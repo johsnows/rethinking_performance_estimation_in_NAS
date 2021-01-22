@@ -30,10 +30,10 @@ def main():
     all_kends = []
     for i in range(1,10):
         kends = []
-        for epoch in range(580):
+        for epoch in range(10):
             accs = []
             for j in range(24):
-                acc=np.load("res/darts{}epoch{}acc.npy".format(j, epoch))
+                acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
                 accs.append(acc[i])
         # print(accs)
         # print(gt)
@@ -44,8 +44,8 @@ def main():
         #     if id and id < len(kends) - 1:
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         all_kends.append(kends)
-        draw_linear(epochs, kends, "top{}kend_all.pdf".format(i))
-    draw_linears_y(epochs, all_kends, "top1_9kend_all.pdf")
+        draw_linear(epochs, kends, "bpe1_top{}kend_all.pdf".format(i))
+    draw_linears_y(epochs, all_kends, "bpe1_top1_9kend_all.pdf")
 
     print('kend all', kend)
 
