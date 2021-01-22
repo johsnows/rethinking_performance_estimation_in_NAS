@@ -95,8 +95,8 @@ def super_accuracy(output, target):
         target = target.max(1)[1]
     target = target.view(1, -1).expand_as(pred)
     mp = torch.tensor([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
-    print('target',target.shape)
-    print('pred',pred.shape)
+    # print('target',target.shape)
+    # print('pred',pred.shape)
     target = mp[target]
     pred = mp[pred[:][0]]
     correct = pred.eq(target).view(-1).float().sum(0)
