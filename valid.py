@@ -76,7 +76,6 @@ def main():
     # change size of input image
     input_size = config.image_size
 
-    print("Model size = {:.3f} MB".format(mb_params))
     ckpt = "experiment/darts_10/{}/checkpoint10.pth.tar"
     top1s = []
     file_ = open(config.file)
@@ -87,6 +86,7 @@ def main():
                            use_aux, eval(line))
         # model size
         mb_params = utils.param_size(model)
+        print("Model size = {:.3f} MB".format(mb_params))
         model = nn.DataParallel(model, device_ids=config.gpus).to(device)
         model =torch.load(ckpt.format(i))
         if isinstance(model, torch.nn.DataParallel):
