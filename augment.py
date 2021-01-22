@@ -9,8 +9,7 @@ from torch.utils.data import RandomSampler
 from param_setting import  *
 
 
-config = AugmentConfig()
-config.update(param_BPE1)
+config = AugmentConfig(param_BPE1)
 
 device = torch.device("cuda")
 

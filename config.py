@@ -109,10 +109,11 @@ class AugmentConfig(BaseConfig):
 
         return parser
 
-    def __init__(self):
+    def __init__(self, dict):
         parser = self.build_parser()
         args = parser.parse_args()
         super().__init__(**vars(args))
+        super().__init__(dict)
         time_str = time.asctime(time.localtime()).replace(' ', '_')
         random_str = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
         if self.save_path:
@@ -173,3 +174,4 @@ class AugmentConfig(BaseConfig):
                     break
 
         self.gpus = parse_gpus(self.gpus)
+
