@@ -81,6 +81,8 @@ def main():
     file_ = open(config.file)
     lines = file_.readlines()
     for i, line in enumerate(lines):
+        if i>23:
+            break
     # for i in range(24):
         model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
                                use_aux, geno.from_str(line))
