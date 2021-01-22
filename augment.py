@@ -6,9 +6,11 @@ import utils
 from models.augment_cnn import AugmentCNN
 from utils import *
 from torch.utils.data import RandomSampler
+from param_setting import  *
 
 
 config = AugmentConfig()
+config.update(param_BPE1)
 
 device = torch.device("cuda")
 
