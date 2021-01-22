@@ -113,7 +113,7 @@ class AugmentConfig(BaseConfig):
         parser = self.build_parser()
         args = parser.parse_args()
         super().__init__(**vars(args))
-        super().__init__(dict)
+        super().__init__(**vars(dict))
         time_str = time.asctime(time.localtime()).replace(' ', '_')
         random_str = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
         if self.save_path:
