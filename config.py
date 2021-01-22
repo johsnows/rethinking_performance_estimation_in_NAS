@@ -105,6 +105,7 @@ class AugmentConfig(BaseConfig):
         parser.add_argument('--save_dir', default='experiment/', help='save_dir')
         parser.add_argument('--file', default='', help='file_save_')
         parser.add_argument('--i', type=int,default=0)
+        parser.add_argument('--bpe', type=int,default=0)
         parser.add_argument('--ckpt', default='', help='checkpoint')
 
         return parser
@@ -113,7 +114,8 @@ class AugmentConfig(BaseConfig):
         parser = self.build_parser()
         args = parser.parse_args()
         super().__init__(**vars(args))
-        super().__init__(**(dict))
+        if args.bpe:
+            super().__init__(**(dict))
         time_str = time.asctime(time.localtime()).replace(' ', '_')
         random_str = ''.join(random.choice(string.ascii_uppercase + string.digits) for _ in range(8))
         if self.save_path:
