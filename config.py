@@ -105,6 +105,7 @@ class AugmentConfig(BaseConfig):
         parser.add_argument('--save_dir', default='experiment/', help='save_dir')
         parser.add_argument('--file', default='', help='file_save_')
         parser.add_argument('--i', type=int,default=0)
+        parser.add_argument('--ckpt', default='', help='checkpoint')
 
         return parser
 

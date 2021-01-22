@@ -88,6 +88,20 @@ class AverageMeter():
         self.count += n
         self.avg = self.sum / self.count
 
+def super_acccuracy(output, target):
+    _, pred = output.topk(1, 1, True, True)
+    pred = pred.t()
+    if target.ndimension() > 1:
+        target = target.max(1)[1]
+    # target = target.view(1, -1).expand_as(pred)
+    mp = torch.tensor([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
+    print('target',target.shape)
+    print('pred',pred.shape)
+    target = mp[target]
+    pred = mp[pred[:][0]]
+    correct = pred.eq(target).view(-1).float().sum(0)
+    return correct
+
 
 def accuracy(output, target, topk=(1,)):
     """ Computes the precision@k for the specified values of k """
