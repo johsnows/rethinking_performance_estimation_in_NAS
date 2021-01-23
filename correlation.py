@@ -46,8 +46,8 @@ def main():
                 acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
-        if epoch==9:
-            print(accs)
+            if epoch==9:
+                print(accs)
         # print(gt)
             kend, _ = kendalltau(accs, gt)  #kend on acc and gt at special epoch i and using differnet top x
             print('top{} epoch{} kend{}'.format(i, epoch, kend))
