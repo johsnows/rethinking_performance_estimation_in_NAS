@@ -34,7 +34,7 @@ def main():
     gt = [ 96.82, 97.28, 96.98, 97.19, 96.87, 96.76, 97.09, 97.24, 97.26, 96.92, 96.82, 97.09, 96.62, 97.02, 97.18, 97.15, 97.32, 97.05, 97.02, 97.16, 97.34, 97.00, 97.19, 96.51, ]
     x = [ 66.88, 67.85, 65.98, 67.81, 66.01, 63.81, 65.71, 64.93, 68.53, 65.10, 63.53, 65.16, 63.33, 66.81, 66.29, 63.09, 64.38, 65.61, 64.93, 65.90, 65.60, 66.12, 68.10, 66.77, ]
     print(kendalltau(x, gt)[0])
-    return
+    # return
     epochs =[i for i in range(10)]
     all_kends = []
     best_top=[[0 for i in range(24)] for i in range(10)]
@@ -46,7 +46,8 @@ def main():
                 acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
-        # print(accs)
+        if epoch==9:
+            print(accs)
         # print(gt)
             kend, _ = kendalltau(accs, gt)  #kend on acc and gt at special epoch i and using differnet top x
             print('top{} epoch{} kend{}'.format(i, epoch, kend))
