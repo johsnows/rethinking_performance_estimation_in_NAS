@@ -124,6 +124,7 @@ def main():
             else:
                 np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         elif config.dataset == 'cifar100':
+            print('cifar100')
             np.save("res/cifar100_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         top1=tops[0]
 
