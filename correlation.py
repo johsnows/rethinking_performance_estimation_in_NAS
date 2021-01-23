@@ -41,7 +41,7 @@ def main():
             accs = []
             for j in range(24):  # model
                 acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
-                best_top[i][j] = max(best_top[i][j], acc)  # get the best top util this epoch for model j using top i
+                best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
         # print(accs)
         # print(gt)
