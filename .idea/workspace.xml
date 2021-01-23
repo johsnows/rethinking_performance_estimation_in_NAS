@@ -3,7 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a4ac9f41-874b-4ba5-8c3e-2343bd5699e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/param_setting.py" beforeDir="false" afterPath="$PROJECT_DIR$/param_setting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/correlation.py" beforeDir="false" afterPath="$PROJECT_DIR$/correlation.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +24,7 @@
   <component name="ProjectId" id="1nKOMgC5ueW6folOwVdbpOFhlgG" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="D:/code/similar_nas" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -77,7 +77,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1611135268438</updated>
-      <workItem from="1611135276187" duration="46785000" />
+      <workItem from="1611135276187" duration="47389000" />
+      <workItem from="1611400070405" duration="288000" />
     </task>
     <servers />
   </component>
@@ -89,7 +90,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
