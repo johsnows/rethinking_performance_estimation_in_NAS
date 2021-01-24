@@ -142,7 +142,7 @@ class AugmentConfig(BaseConfig):
         #             self.genotype = line
         #             print(line)
         #             break
-        if self.file and self.dataset == 'cifar10':
+        if self.file and self.dataset == 'CIFAR10':
             print("automate run cifar10 epochs".format(self.epochs))
             file_ = open(self.file)
             lines = file_.readlines()
