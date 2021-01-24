@@ -35,14 +35,16 @@ def main():
     # x = [ 66.88, 67.85, 65.98, 67.81, 66.01, 63.81, 65.71, 64.93, 68.53, 65.10, 63.53, 65.16, 63.33, 66.81, 66.29, 63.09, 64.38, 65.61, 64.93, 65.90, 65.60, 66.12, 68.10, 66.77, ]
     # print(kendalltau(x, gt)[0])
     # return
-    epochs =[i for i in range(10)]
+    model_numbers =100
+    epoch_numbers =10
+    epochs =[i for i in range(epoch_numbers)]
     all_kends = []
-    best_top=[[0 for i in range(24)] for i in range(10)]
+    best_top=[[0 for i in range(model_numbers)]for i in range(10)]
     for i in range(1,10):  # top 1-9
         kends = []
-        for epoch in range(10):  # epoch
+        for epoch in range(epoch_numbers):  # epoch
             accs = []
-            for j in range(100):  # model
+            for j in range(model_numbers):  # model
                 acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
