@@ -31,7 +31,7 @@ def main():
     # a = [1,2,3]
     # b = [113,12312,12312321]
     # print(kendalltau(a,b)[0])
-    gt = [ 96.82, 97.28, 96.98, 97.19, 96.87, 96.76, 97.09, 97.24, 97.26, 96.92, 96.82, 97.09, 96.62, 97.02, 97.18, 97.15, 97.32, 97.05, 97.02, 97.16, 97.34, 97.00, 97.19, 96.51, ]
+    gt = [ 96.82, 97.28, 96.98, 97.19, 96.87, 96.76, 97.09, 97.24, 97.26, 96.92, 96.82, 97.09, 96.62, 97.02, 97.18, 97.15, 97.32, 97.05, 97.02, 97.16, 97.34, 97.00, 97.19, 96.51, 96.85, 96.56, 96.89, 97.01, 97.15, 97.10, 96.87, 96.59, 96.93, 97.24, 97.19, 97.14, 96.55, 97.04, 97.08, 96.95, 97.40, 96.97, 97.16, 96.90, 96.78, 96.94, 97.12, 97.13, 97.05, 97.04, 96.55, 96.92, 96.80, 97.08, 97.28, 96.94, 97.08, 97.11, 97.35, 97.15, 97.07, 96.93, 96.40, 97.02, 96.85, 96.79, 96.18, 96.75, 97.02, 97.45, 97.08, 97.41, 96.96, 96.52, 96.87, 96.47, 97.20, 96.31, 96.99, 97.13, 97.16, 97.08, 97.07, 96.62, 97.18, 97.20, 97.11, 96.81, 96.90, 97.21, 96.94, 96.96, 96.81, 96.93, 97.36, 97.01, 97.12, 97.05, 96.85, 97.38, ]
     # x = [ 66.88, 67.85, 65.98, 67.81, 66.01, 63.81, 65.71, 64.93, 68.53, 65.10, 63.53, 65.16, 63.33, 66.81, 66.29, 63.09, 64.38, 65.61, 64.93, 65.90, 65.60, 66.12, 68.10, 66.77, ]
     # print(kendalltau(x, gt)[0])
     # return
@@ -42,7 +42,7 @@ def main():
         kends = []
         for epoch in range(10):  # epoch
             accs = []
-            for j in range(24):  # model
+            for j in range(100):  # model
                 acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
@@ -56,8 +56,8 @@ def main():
         #     if id and id < len(kends) - 1:
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         all_kends.append(kends)
-        draw_linear(epochs, kends, "bpe1_top{}kend_all.pdf".format(i))
-    draw_linears_y(epochs, all_kends, "bpe1_top1_9kend_all.pdf")
+        draw_linear(epochs, kends, "bpe1_top{}kend_100.pdf".format(i))
+    draw_linears_y(epochs, all_kends, "bpe1_top1_9kend_100.pdf")
 
     print('kend all', kend)
 
