@@ -118,14 +118,15 @@ def main():
         top1 = validate(valid_loader, model, criterion, epoch, cur_step)
         # tops = mul_validate(valid_loader, model, criterion, epoch, cur_step, n_classes)
         # print('tops', tops)
-        if config.dataset== 'cifar10':
-            if config.epochs == 10:
-                np.save("res/bpe1_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
-            else:
-                np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
-        elif config.dataset == 'cifar100':
-            print('cifar100')
-            np.save("res/cifar100_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+        np.save("experiment/{}/{}/epoch{}acc.npy".format(config.name, config.i, epoch), top1)
+        # if config.dataset== 'cifar10':
+        #     if config.epochs == 10:
+        #         np.save("res/bpe1_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+        #     else:
+        #         np.save("res/darts{}epoch{}acc.npy".format(config.i, epoch), tops)
+        # elif config.dataset == 'cifar100':
+        #     print('cifar100')
+        #     np.save("res/cifar100_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
         # top1=tops[0]
 
 
@@ -142,12 +143,12 @@ def main():
     logger.info("Final best Prec@1 = {:.4%}".format(best_top1))
 
 def transform_2(target):
-    print('target', target)
+    # print('target', target)
     batch_size=target.size(0)
     mp = torch.tensor([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
     target = mp[target].cuda()
     # one_hot = torch.zeros(batch_size, 2).scatter_(1, target, 1)
-    print('target', target)
+    # print('target', target)
     # print('one_hot', one_hot)
     return  target
 
