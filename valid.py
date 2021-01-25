@@ -6,7 +6,8 @@ from models.augment_cnn import AugmentCNN
 from config import AugmentConfig
 import utils
 import genotypes as geno
-config = AugmentConfig()
+dict = None
+config = AugmentConfig(dict)
 
 device = torch.device("cuda")
 def validate(valid_loader, model, criterion, epoch):
