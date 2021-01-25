@@ -103,7 +103,7 @@ def main():
                                                        shuffle=False,
                                                        num_workers=config.workers,
                                                        pin_memory=True)
-            top1 = validate(valid_loader, model, criterion, 10)
+            top1 = validate(valid_loader, model, criterion, epoch)
             top1s.append(top1)
         top1s = np.array(top1s)
         np.save("res/binary_bpe1_epoch{}_acc.npy".format(epoch), top1s)
