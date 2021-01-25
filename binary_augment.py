@@ -145,7 +145,7 @@ def transform_2(target):
     print('target', target)
     batch_size=target.size(0)
     mp = torch.tensor([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
-    target = mp[target]
+    target = mp[target].cuda()
     # one_hot = torch.zeros(batch_size, 2).scatter_(1, target, 1)
     print('target', target)
     # print('one_hot', one_hot)
