@@ -59,7 +59,7 @@ def main():
             #kend, _ = kendalltau(accs, gt)  #kend on acc and gt at special epoch i and using differnet top x
             spearm, _=spearmanr(accs, gt)
             # print('top{} epoch{} kend{}'.format(i, epoch, kend))
-            print('top{} epoch{} spearmnar{}'.format(i, epoch, spearms))
+            print('top{} epoch{} spearmnar{}'.format(i, epoch, spearm))
             # kends.append(kend)
             spearms.append(spearm)
         # for id in range(len(kends)):
@@ -67,7 +67,7 @@ def main():
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         # all_kends.append(kends)
         # draw_linear(epochs, kends, "bpe1_top{}kend_100.pdf".format(i))
-        all_spearms.apppend(spearms)
+        all_spearms.append(spearms)
         draw_linear(epochs, spearms, "bpe1_top{}spearms_100.pdf".format(i))
     # draw_linears_y(epochs, all_kends, "bpe1_top1_9kend_100.pdf")
     draw_linears_y(epochs, all_spearms, "bpe1_top1_9spearms_100.pdf")
