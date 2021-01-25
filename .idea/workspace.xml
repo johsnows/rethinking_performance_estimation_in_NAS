@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a4ac9f41-874b-4ba5-8c3e-2343bd5699e3" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/valid.py" beforeDir="false" afterPath="$PROJECT_DIR$/valid.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,7 +23,15 @@
   <component name="ProjectId" id="1nKOMgC5ueW6folOwVdbpOFhlgG" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/models" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\research_code\rethinking_performance_estimation_in_NAS" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\research_code\rethinking_performance_estimation_in_NAS\models" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -77,7 +85,7 @@
       <option name="presentableId" value="Default" />
       <updated>1611135268438</updated>
       <workItem from="1611135276187" duration="47389000" />
-      <workItem from="1611400070405" duration="16287000" />
+      <workItem from="1611400070405" duration="20141000" />
     </task>
     <servers />
   </component>
