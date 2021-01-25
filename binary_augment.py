@@ -115,9 +115,9 @@ def main():
 
         # validation
         cur_step = (epoch+1) * len_train_loader
-        # top1 = validate(valid_loader, model, criterion, epoch, cur_step)
-        tops = mul_validate(valid_loader, model, criterion, epoch, cur_step, n_classes)
-        print('tops', tops)
+        top1 = validate(valid_loader, model, criterion, epoch, cur_step)
+        # tops = mul_validate(valid_loader, model, criterion, epoch, cur_step, n_classes)
+        # print('tops', tops)
         if config.dataset== 'cifar10':
             if config.epochs == 10:
                 np.save("res/bpe1_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
@@ -126,7 +126,7 @@ def main():
         elif config.dataset == 'cifar100':
             print('cifar100')
             np.save("res/cifar100_darts{}epoch{}acc.npy".format(config.i, epoch), tops)
-        top1=tops[0]
+        # top1=tops[0]
 
 
         # save
@@ -172,7 +172,7 @@ def train(train_loader, model, optimizer, criterion, epoch):
         nn.utils.clip_grad_norm_(model.parameters(), config.grad_clip)
         optimizer.step()
 
-        prec1, prec5 = utils.accuracy(logits, y, topk=(1, 5))
+        prec1, prec5 = utils.accuracy(logits, y, topk=(1, 2))
         losses.update(loss.item(), N)
         top1.update(prec1.item(), N)
         top5.update(prec5.item(), N)
@@ -284,9 +284,10 @@ def validate(valid_loader, model, criterion, epoch, cur_step):
         N = X.size(0)
 
         logits, _ = model(X)
+        y =transform_2(y)
         loss = criterion(logits, y)
 
-        prec1, prec5 = utils.accuracy(logits, y, topk=(1, 5))
+        prec1, prec5 = utils.accuracy(logits, y, topk=(1, 2))
         losses.update(loss.item(), N)
         top1.update(prec1.item(), N)
         top5.update(prec5.item(), N)
