@@ -52,7 +52,7 @@ def main():
             for j in range(model_numbers):  # model
                 # acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
                 acc=np.load("experiment/test_binary/{}/epoch{}acc.npy".format(j, epoch))
-                best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
+                best_top[i][j] = max(best_top[i][j], acc)  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
             if epoch==9:
                 print(accs)
