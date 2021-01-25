@@ -50,27 +50,28 @@ def main():
         for epoch in range(epoch_numbers):  # epoch
             accs = []
             for j in range(model_numbers):  # model
-                acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
+                # acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
+                acc=np.load("experiment/test_binary/{}/epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc[i])  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
             if epoch==9:
                 print(accs)
         # print(gt)
-            #kend, _ = kendalltau(accs, gt)  #kend on acc and gt at special epoch i and using differnet top x
+            kend, _ = kendalltau(accs, gt)  #kend on acc and gt at special epoch i and using differnet top x
             spearm, _=spearmanr(accs, gt)
-            # print('top{} epoch{} kend{}'.format(i, epoch, kend))
+            print('top{} epoch{} kend{}'.format(i, epoch, kend))
             print('top{} epoch{} spearmnar{}'.format(i, epoch, spearm))
-            # kends.append(kend)
+            kends.append(kend)
             spearms.append(spearm)
         # for id in range(len(kends)):
         #     if id and id < len(kends) - 1:
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
-        # all_kends.append(kends)
-        # draw_linear(epochs, kends, "bpe1_top{}kend_100.pdf".format(i))
+        all_kends.append(kends)
+        draw_linear(epochs, kends, "bpe1_binary_top{}kend_100.pdf".format(i))
         all_spearms.append(spearms)
-        draw_linear(epochs, spearms, "bpe1_top{}spearms_100.pdf".format(i))
-    # draw_linears_y(epochs, all_kends, "bpe1_top1_9kend_100.pdf")
-    draw_linears_y(epochs, all_spearms, "bpe1_top1_9spearms_100.pdf")
+        draw_linear(epochs, spearms, "bpe1_binary_top{}spearms_100.pdf".format(i))
+    draw_linears_y(epochs, all_kends, "bpe1_binary_top1_9kend_100.pdf")
+    draw_linears_y(epochs, all_spearms, "bpe1_binary_top1_9spearms_100.pdf")
 
     # print('kend all', all_spearms)
 
