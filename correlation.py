@@ -51,7 +51,7 @@ def main():
             accs = []
             for j in range(model_numbers):  # model
                 # acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
-                acc=np.load("experiment/test_binary/{}/epoch{}acc.npy".format(j, epoch))
+                acc=np.load("experiment/test_bpe0_binary/{}/epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc)  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
             if epoch==9:
@@ -67,11 +67,11 @@ def main():
         #     if id and id < len(kends) - 1:
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         all_kends.append(kends)
-        draw_linear(epochs, kends, "bpe1_binary_top{}kend_100.pdf".format(i))
+        draw_linear(epochs, kends, "bpe3_binary_top{}kend_100.pdf".format(i))
         all_spearms.append(spearms)
-        draw_linear(epochs, spearms, "bpe1_binary_top{}spearms_100.pdf".format(i))
-    draw_linears_y(epochs, all_kends, "bpe1_binary_top1_9kend_100.pdf")
-    draw_linears_y(epochs, all_spearms, "bpe1_binary_top1_9spearms_100.pdf")
+        draw_linear(epochs, spearms, "bpe3_binary_top{}spearms_100.pdf".format(i))
+    draw_linears_y(epochs, all_kends, "bpe3_binary_top1_9kend_100.pdf")
+    draw_linears_y(epochs, all_spearms, "bpe3_binary_top1_9spearms_100.pdf")
 
     # print('kend all', all_spearms)
 
