@@ -133,7 +133,7 @@ def evaluation(sample, name):
 
     # get data with meta info    
     input_size, input_channels, n_classes, train_data, valid_data = utils.get_data(
-        'cifar10', args.data_path, config['imagesize'], config['cutout'], validation=True)
+        'cifar10', args.data_path, config['image_size'], config['cutout_length'], validation=True)
 
     criterion = nn.CrossEntropyLoss().to(device)
     use_aux = True    
@@ -141,7 +141,7 @@ def evaluation(sample, name):
     # change size of input image 
     input_size = config['imagesize']
     
-    model = AugmentCNN(input_size, input_channels, config['channel'], 10, config['layers'], True, geno)
+    model = AugmentCNN(input_size, input_channels, config['init_channels'], 10, config['layers'], True, geno)
     mb_params = utils.param_size(model)
     logger.info("Model size = {:.3f} MB".format(mb_params))
     model = nn.DataParallel(model, device_ids=[0]).to(device)
