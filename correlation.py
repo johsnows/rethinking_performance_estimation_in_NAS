@@ -39,7 +39,7 @@ def main():
     print(kendalltau(x, gt)[0])
     # return
     model_numbers =100
-    epoch_numbers =10
+    epoch_numbers = 3
     epochs =[i for i in range(epoch_numbers)]
     all_kends = []
     all_spearms = []
