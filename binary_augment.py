@@ -49,7 +49,7 @@ def main():
     
     # change size of input image 
     input_size = config.image_size
-    n_classes = 2
+    n_classes = 6
     model = AugmentCNN(input_size, input_channels, config.init_channels, n_classes, config.layers,
                        use_aux, (config.genotype))
     # model size
@@ -145,7 +145,8 @@ def main():
 def transform_2(target):
     # print('target', target)
     batch_size=target.size(0)
-    mp = torch.tensor([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
+    # mp = torch.tensor([0, 0, 1, 1, 1, 1, 1, 1, 0, 0])
+    mp = torch.tensor([0, 1, 2, 3, 4, 3, 5, 4, 0, 1])
     target = mp[target].cuda()
     # one_hot = torch.zeros(batch_size, 2).scatter_(1, target, 1)
     # print('target', target)
