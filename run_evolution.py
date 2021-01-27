@@ -150,9 +150,9 @@ def evaluation(sample, name):
     optimizer = torch.optim.SGD(model.parameters(), config['lr'], momentum=0.9, weight_decay=3e-4)
 
     # get data loader
-    train_loader = torch.utils.data.DataLoader(train_data, batch_size=config['batchsize'], \
+    train_loader = torch.utils.data.DataLoader(train_data, batch_size=config['batch_size'], \
                                                shuffle=True, num_workers=4, pin_memory=True)
-    valid_loader = torch.utils.data.DataLoader(valid_data, batch_size=config['batchsize'], \
+    valid_loader = torch.utils.data.DataLoader(valid_data, batch_size=config['batch_size'], \
                                                shuffle=True, num_workers=4, pin_memory=True)
     
     # lr scheduler
