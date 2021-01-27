@@ -3,8 +3,8 @@ import random
 import json
 import argparse
 import collections
-import tensorflow as tf
-import tensorflow_probability as tfp
+# import tensorflow as tf
+# import tensorflow_probability as tfp
 import ConfigSpace
 import numpy as np
 import torch.nn as nn
