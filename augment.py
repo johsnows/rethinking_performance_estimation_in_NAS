@@ -105,6 +105,8 @@ def main():
     
     # training loop
     for epoch in range(config.epochs):
+        if epoch>=10:
+            break
         lr_scheduler.step()
         drop_prob = config.drop_path_prob * epoch / config.epochs
         fp = 16 if config.fp16 else 32
