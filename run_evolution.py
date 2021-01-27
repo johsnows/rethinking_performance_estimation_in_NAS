@@ -139,7 +139,7 @@ def evaluation(sample, name):
     use_aux = True    
     
     # change size of input image 
-    input_size = config['imagesize']
+    input_size = config['image_size']
     
     model = AugmentCNN(input_size, input_channels, config['init_channels'], 10, config['layers'], True, geno)
     mb_params = utils.param_size(model)
