@@ -5,6 +5,21 @@ matplotlib.use("agg")
 import matplotlib.pyplot as plt
 from scipy.stats import kendalltau, spearmanr
 
+def draw_linears_100(x, y, name): #cifar100 top100
+    '''
+    :param x:  different_epochs []
+    :param y:  kend
+    :param name:   pdf
+    :return:
+    '''
+    n = len(y)
+    fig, axes = plt.subplots(nrows=10, ncols=10, figsize=(30, 10))
+    for i in range(n):
+        j = i //10
+        k = i % 10
+        axes[j][k].plot(x, y[i])
+    plt.savefig(name)
+
 def draw_linears_y(x, y, name):
     '''
     :param x:  different_epochs []
@@ -39,22 +54,23 @@ def main():
     print(kendalltau(x, gt)[0])
     # return
     model_numbers =100
-    epoch_numbers = 10
+    epoch_numbers = 200
+    top_metric = 100
     epochs =[i for i in range(epoch_numbers)]
     all_kends = []
     all_spearms = []
     best_top=[[0 for i in range(model_numbers)]for i in range(10)]
-    for i in range(1, 2):  # top 1-9
+    for i in range(1, top_metric):  # top 1-9
         kends = []
         spearms = []
         for epoch in range(epoch_numbers):  # epoch
             accs = []
             for j in range(model_numbers):  # model
-                # acc=np.load("res/bpe1_darts{}epoch{}acc.npy".format(j, epoch))
-                acc=np.load("experiment/test_bpe0_binary/{}/epoch{}acc.npy".format(j, epoch))
+                acc=np.load("res/cifar100_darts{}epoch{}acc.npy".format(j, epoch))
+                # acc=np.load("experiment/test_bpe0_binary/{}/epoch{}acc.npy".format(j, epoch))
                 best_top[i][j] = max(best_top[i][j], acc)  # get the best top util this epoch for model j using top i
                 accs.append(best_top[i][j])
-            if epoch==9:
+            if epoch==99:
                 print(accs)
         # print(gt)
             kend, _ = kendalltau(accs, gt)  #kend on acc and gt at special epoch i and using differnet top x
@@ -67,11 +83,11 @@ def main():
         #     if id and id < len(kends) - 1:
         #         kends[id] = (kends[id] + kends[id - 1] + kends[id + 1]) / 3
         all_kends.append(kends)
-        draw_linear(epochs, kends, "bpe0_binary_top{}kend_100.pdf".format(i))
+        draw_linear(epochs, kends, "pdf/cifar100_epoch100_top{}kend_100.pdf".format(i))
         all_spearms.append(spearms)
-        draw_linear(epochs, spearms, "bpe0_binary_top{}spearms_100.pdf".format(i))
-    # draw_linears_y(epochs, all_kends, "bpe1_binary_top1_9kend_100.pdf")
-    # draw_linears_y(epochs, all_spearms, "bpe1_binary_top1_9spearms_100.pdf")
+        draw_linear(epochs, spearms, "pdf/cifar100_epoch100_top{}spearms_100.pdf".format(i))
+    draw_linears_y(epochs, all_kends, "pdf/cifar100_epoch100_top1_99kend_100.pdf")
+    draw_linears_y(epochs, all_spearms, "pdf/cifar100_epoch100_top1_99spearms_100.pdf")
 
     # print('kend all', all_spearms)
 
