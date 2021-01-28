@@ -60,7 +60,7 @@ def main():
     torch.cuda.set_device(config.local_rank)
     train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
     model.cuda()
-    model=torch.nn.parallel.DistributedDataParallel(model, device_ids=[config.local_rank], find_unused_parameters=True)
+    model=torch.nn.parallel.DistributedDataParallel(model, device_ids=[config.local_rank])
     # model = nn.DataParallel(model, device_ids=config.gpus).to(device)
 
     if config.fp16:
