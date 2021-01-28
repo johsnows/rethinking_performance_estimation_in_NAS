@@ -7,6 +7,7 @@ from models.augment_cnn import AugmentCNN
 from utils import *
 from torch.utils.data import RandomSampler
 from param_setting import  *
+# torch.distributed.init_process_group(backend="nccl", rank=rank, world_size=world_size, init_method=args.dist_url)
 
 
 config = AugmentConfig(param_BPE1)
@@ -25,6 +26,7 @@ def main():
     logger.info("Logger is set - training start")
     logger.info("Torch version is: {}".format(torch.__version__))
     logger.info("Torch_vision version is: {}".format(torchvision.__version__))
+    torch.distributed.init_process_group(backend="nccl", rank=config.local_rank)
 
     # set default gpu device id
     torch.cuda.set_device(config.gpus[0])
@@ -58,7 +60,7 @@ def main():
     torch.cuda.set_device(config.local_rank)
     train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
     model.cuda()
-    model=torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank], find_unused_parameters=True)
+    model=torch.nn.parallel.DistributedDataParallel(model, device_ids=[config.local_rank], find_unused_parameters=True)
     # model = nn.DataParallel(model, device_ids=config.gpus).to(device)
 
     if config.fp16:

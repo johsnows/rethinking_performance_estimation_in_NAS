@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a4ac9f41-874b-4ba5-8c3e-2343bd5699e3" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/binary_augment.py" beforeDir="false" afterPath="$PROJECT_DIR$/binary_augment.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/run_augment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/run_augment.sh" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -89,7 +86,7 @@
       <updated>1611135268438</updated>
       <workItem from="1611135276187" duration="47389000" />
       <workItem from="1611400070405" duration="37694000" />
-      <workItem from="1611802689832" duration="5025000" />
+      <workItem from="1611802689832" duration="5829000" />
     </task>
     <servers />
   </component>
