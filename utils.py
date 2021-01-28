@@ -28,7 +28,7 @@ def get_data(dataset, data_path, input_size, cutout_length, validation):
         raise ValueError(dataset)
 
     trn_transform, val_transform = preproc.data_transforms(dataset, input_size, cutout_length)
-    trn_data = dset_cls(root=data_path, train=True, download=True, transform=trn_transform)
+    trn_data = dset_cls(root=data_path, train=True, download=False, transform=trn_transform)
 
     # assuming shape is NHW or NHWC
     shape = trn_data.train_data.shape

@@ -86,8 +86,8 @@ def main():
         draw_linear(epochs, kends, "pdf/cifar100_epoch100_top{}kend_100.pdf".format(i))
         all_spearms.append(spearms)
         draw_linear(epochs, spearms, "pdf/cifar100_epoch100_top{}spearms_100.pdf".format(i))
-    draw_linears_y(epochs, all_kends, "pdf/cifar100_epoch100_top1_99kend_100.pdf")
-    draw_linears_y(epochs, all_spearms, "pdf/cifar100_epoch100_top1_99spearms_100.pdf")
+    draw_linears_100(epochs, all_kends, "pdf/cifar100_epoch100_top1_99kend_100.pdf")
+    draw_linears_100(epochs, all_spearms, "pdf/cifar100_epoch100_top1_99spearms_100.pdf")
 
     # print('kend all', all_spearms)
 
