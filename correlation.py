@@ -59,7 +59,7 @@ def main():
     epochs =[i for i in range(epoch_numbers)]
     all_kends = []
     all_spearms = []
-    best_top=[[0 for i in range(model_numbers)]for i in range(10)]
+    best_top=[[0 for i in range(model_numbers)]for i in range(top_metric)]
     for i in range(1, top_metric):  # top 1-9
         kends = []
         spearms = []
