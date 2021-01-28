@@ -55,7 +55,11 @@ def main():
     # model size
     mb_params = utils.param_size(model)
     logger.info("Model size = {:.3f} MB".format(mb_params))
-    model = nn.DataParallel(model, device_ids=config.gpus).to(device)
+    torch.cuda.set_device(config.local_rank)
+    train_sampler = torch.utils.data.distributed.DistributedSampler(train_data)
+    model.cuda()
+    model=torch.nn.parallel.DistributedDataParallel(model, device_ids=[args.local_rank], find_unused_parameters=True)
+    # model = nn.DataParallel(model, device_ids=config.gpus).to(device)
 
     if config.fp16:
         model = model.half()
@@ -73,7 +77,8 @@ def main():
                                                    batch_size=config.batch_size,
                                                    shuffle=True,
                                                    num_workers=config.workers,
-                                                   pin_memory=True)
+                                                   pin_memory=True,
+                                                   sampler=train_sampler)
         valid_loader = torch.utils.data.DataLoader(valid_data,
                                                    batch_size=config.batch_size,
                                                    shuffle=False,

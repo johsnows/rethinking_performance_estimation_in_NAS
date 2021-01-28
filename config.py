@@ -107,6 +107,7 @@ class AugmentConfig(BaseConfig):
         parser.add_argument('--i', type=int,default=0)
         parser.add_argument('--bpe', type=int,default=0)
         parser.add_argument('--ckpt', default='', help='checkpoint')
+        parser.add_argument('--local_rank', default=0, type=int, help='node rank for distributed training')
 
         return parser
 
